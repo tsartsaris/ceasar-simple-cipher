@@ -112,7 +112,8 @@ def get_key_from_user():
 			break
 		except ValueError:
 			print "Oops!  That was no valid number.  Try again..."
-	return key_disp%len(string.ascii_lowercase) #θα μπορούσαμε να βάλουμε %26 αλλά αν αλλάξει το αλφάβητο απο αγγλικό σε ελληνικό?
+	return key_disp%len(string.ascii_lowercase) #θα μπορούσαμε να βάλουμε %26 αλλά αν αλλάξει 
+						    #το αλφάβητο απο αγγλικό σε ελληνικό?
 
 
 
@@ -121,12 +122,12 @@ create_initial_dict() # αν είχαμε κάνει στην αρχή fixed τ�
 text = get_text_from_user() # πέρνουμε το κείμενο από το χρήστη
 modulo = get_key_from_user() # πέρνουμε το κλειδί
 disposition_dict = create_displacement_dict(modulo) #κατασκευάζουμε το νέο dictionary κάνωντας dispotition 
-													#τα γράμματα με βάση το κλειδί
+						    #τα γράμματα με βάση το κλειδί
 for char in text: # iterate στο κείμενο του χρήστη
 	for key,value in numbers_letters.iteritems(): # iterate και στο αρχικό dictionary
 		if value == char: # αν βρούμε το ίδιο γράμμα
 			cipher_text.extend(disposition_dict[key]) # τότε προσθέτουμε στη λίστα το γράμμα που αντιστοιχεί στην ίδια θέση από 
-													  # το dictionary που έχουν μετακινηθεί τα γράμματα βάση του κλειδιού
+							          # το dictionary που έχουν μετακινηθεί τα γράμματα βάση του κλειδιού
 
 print ''.join(cipher_text) # εμφανίζουμε το αποτέλεσμα στο χρήστη μετατρέποντας τη λίστα σε string
 

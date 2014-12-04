@@ -1,0 +1,122 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Initial commit of the code at https://github.com/tsartsaris/ceasar-simple-cipher
+"""
+
+import string
+
+
+
+"""
+Εδώ θα αποθηκεύσουμε όλα τα αποτελέσματα. Θα είναι μία λίστα από λίστες
+"""
+results = []
+
+"""
+αυτή είναι η  αρχική λίστα και την αρχικοποιούμε σε global 
+	θα είναι της μορφής 
+	numbers_letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+	 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+κάθε φορά που θέλουμε τη θέση του γράμματος θα πέρνουμε list.index(character)
+είναι σχετικά πιο απλό από ένα dictionary αλλά όταν το πλήθος των στοιχείων είναι μεγάλο 
+θα είναι και πιο αργή η αναζήτηση
+"""
+numbers_letters = [] 
+
+"""
+Εδώ θα έχουμε όλες τις πιθανές λύσεις. Στην αρχική δηλαδή λίστα σε κάθε τιμή value 
+θα μεταφέρουμε το κλειδί κατά i%26 και κρατάμε το γράμμα σταθερό ή μεταφέρουμε τη θέση
+του γράμματος και κρατάμε το key σταθερό φτιάχνοντας ένα dictionary
+"""
+numbers_letters_disp = []
+
+
+def create_initial_list():
+	i=0
+	for char in string.ascii_lowercase: #iteration σε όλα τα γράμματα a-z
+		numbers_letters.extend(char) #dictionary construction το key είναι το i : value το γράμμα
+		i+=1
+
+
+def create_dispositioned_lists():
+	for key in range(0,len(string.ascii_lowercase)): #για κάθε κλειδί από 0-25
+		i=0
+		disp_dict = {} #το dictionary είναι άδειο
+		for char in string.ascii_lowercase: #για κάθε γράμμα
+			disp_dict[abs(i+key)%len(string.ascii_lowercase)]=char #βάζουμε τη θέση + κλειδί%26 : γράμμα
+			i+=1 
+		numbers_letters_disp.append(disp_dict) # προσθέτουμε το κάθε dictionary στη λίστα
+	
+
+
+
+
+
+def get_init_message():
+    text = raw_input("Please provide encrypted message to decrypt: ").lower()
+    return text
+
+
+
+encrypted_msg = get_init_message()
+create_initial_list()
+create_dispositioned_lists()
+print numbers_letters
+
+for dicts in numbers_letters_disp: #για όλες τις πιθανές λύσεις που έχουμε φτιάξει
+	pre_lis=[] #το αποτέλεσμα είναι κενό
+	for char in encrypted_msg: #για κάθε χαρακτήρα στο κρυπτογραφημένο κείμενο
+		for value in numbers_letters: #για κάθε χαρακτήρα στην αρχική λίστα
+			if value==char: #αν βρεθέι ο χαρακτήρας
+				pre_lis.extend(dicts[numbers_letters.index(value)]) #προσθέτουμε στο αποτέλεσμα το γράμμα της θέσης 
+																	#από την πιθανή λύση
+	results.append(pre_lis) #προσθέτουμε την πιθανή λύση στην τελική
+
+#εμφανίζουμε τα αποτελέσματα
+for row in results:
+	print ''.join(row)+":"+str(results.index(row)) 
+
+
+"""
+ΑΠΟΤΕΛΕΣΜΑ
+hphtwwxppelextoytrse:0
+gogsvvwoodkdwsnxsqrd:1
+fnfruuvnncjcvrmwrpqc:2
+emeqttummbibuqlvqopb:3
+dldpsstllahatpkupnoa:4
+ckcorrskkzgzsojtomnz:5
+bjbnqqrjjyfyrnisnlmy:6
+aiamppqiixexqmhrmklx:7
+zhzloophhwdwplgqljkw:8
+ygyknnoggvcvokfpkijv:9
+xfxjmmnffubunjeojhiu:10
+wewillmeetatmidnight:11
+vdvhkklddszslhcmhfgs:12
+ucugjjkccryrkgblgefr:13
+tbtfiijbbqxqjfakfdeq:14
+sasehhiaapwpiezjecdp:15
+rzrdgghzzovohdyidbco:16
+qyqcffgyynungcxhcabn:17
+pxpbeefxxmtmfbwgbzam:18
+owoaddewwlsleavfayzl:19
+nvnzccdvvkrkdzuezxyk:20
+mumybbcuujqjcytdywxj:21
+ltlxaabttipibxscxvwi:22
+kskwzzasshohawrbwuvh:23
+jrjvyyzrrgngzvqavtug:24
+iqiuxxyqqfmfyupzustf:25
+"""

@@ -1,0 +1,97 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Initial commit of the code at https://github.com/tsartsaris/ceasar-simple-cipher
+"""
+
+
+
+import collections  # θα χρησιμοποιήσουμε την collections κάνουμε πιο έυκολη τη ζωή μας
+from string import ascii_lowercase # αυτό είναι το "a...z"
+
+
+
+
+"""
+    Αυτό είναι το κείμενο του οποίου θέλουμε να βρούμε τις σχετικές συχνότητες
+    αυτό που ψάχνουμε είναι το πηλίκο της απόλυτης συχνότητας εμφάνισης ενός χαρακτήρα
+    προς ο πλήθος του χαρακτήρα RelFreq=AbsFreq/SumChars ή f=p/n. 
+    Δίνω εδώ τον τύπο για να βλέπουμε σε κάθε βήμα τι υπολογίζουμε
+"""
+
+s = """lrvmnir bpr sumvbwvr jx bpr lmiwv yjeryrkbi jx qmbm wi
+bpr xjvni mkd ymibrut jx irhx wi bpr riirkvr jx
+ymbinlmtmipw utn qmumbr dj w ipmhh but bj rhnvwdmbr bpr
+yjeryrkbi jx bpr qmbm mvvjudwko bj yt wkbrusurbmbwjk
+lmird jk xjubt trmui jx ibndt
+wb wi kjb mk rmit bmiq bj rashmwk rmvp yjeryrkb mkd wbi
+iwokwxwvmkvr mkd ijyr ynib urymwk nkrashmwkrd bj ower m
+vjyshrbr rashmkmbwjk jkr cjnhd pmer bj lr fnmhwxwrd mkd
+wkiswurd bj invp mk rabrkb bpmb pr vjnhd urmvp bpr ibmbr
+jx rkhwopbrkrd ywkd vmsmlhr jx urvjokwgwko ijnkdhrii
+ijnkd mkd ipmsrhrii ipmsr w dj kjb drry ytirhx bpr xwkmh
+mnbpjuwbt lnb yt rasruwrkvr cwbp qmbm pmi hrxb kj djnlb
+bpmb bpr xjhhjcwko wi bpr sujsru msshwvmbwjk mkd
+wkbrusurbmbwjk w jxxru yt bprjuwri wk bpr pjsr bpmb bpr
+riirkvr jx jqwkmcmk qmumbr cwhh urymwk wkbmvb"""
+
+
+
+n = len(s) # αυτό είναι το σύνολο όλων των χαρακτήρων που θέλουμε στον τύπο παραπάνω
+
+
+
+dict_store = collections.defaultdict(int)  #τη βάζουμε σε ένα dictionary που είναι πιο ορθολογικό σαν δομή ώστε να ξέρουμε τι έχουμε
+
+for char in s:  #για κάθε χαρακτήρα στο κείμενο 
+    dict_store[char] += 1 #βάλε το χαρακτήρα και μέτρα +1 
+    #o enumerator είναι για να μετράμε και εδώ είναι το documentation https://docs.python.org/2/library/collections.html#collections.defaultdict
+    #όταν θα τελειώσει το iteration θα έχουμε για κάθε χαρακτήρα την απόλυτη συχνότητα
+    #δηλαδή πόσες φορές τον βρίσκουμε μέσα στο κείμενο
+
+
+for c in ascii_lowercase: #για κάθε γράμμα στο αλφάβητο (το αγγλικό)
+    print c, dict_store[c]/float(n) #η διαίρεση της απόλυτης συχνότητας με το πλήθος των χαρακτήρων μας δίνει και τη σχετική συχνότητα του κάθε γράμματος
+
+"""
+ΑΠΟΤΕΛΕΣΜΑΤΑ
+a 0.00638569604087
+b 0.0868454661558
+c 0.00638569604087
+d 0.029374201788
+e 0.00638569604087
+f 0.00127713920817
+g 0.00127713920817
+h 0.029374201788
+i 0.0523627075351
+j 0.0613026819923
+k 0.0625798212005
+l 0.0102171136654
+m 0.0791826309068
+n 0.021711366539
+o 0.00893997445722
+p 0.0383141762452
+q 0.00893997445722
+r 0.107279693487
+s 0.021711366539
+t 0.0166028097063
+u 0.0306513409962
+v 0.0280970625798
+w 0.0600255427842
+x 0.0255427841635
+y 0.0242656449553
+z 0.0
+"""

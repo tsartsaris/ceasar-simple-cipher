@@ -17,8 +17,10 @@
     Initial commit of the code at https://github.com/tsartsaris/ceasar-simple-cipher
 """
 """
-Με τον κώδικα που ακολουθέι εφαρμόζουμε κρυπτογράφηση με τον τύπο
-Ci = (ai+bMi+g)(ModN)
+	Με τον κώδικα που ακολουθέι εφαρμόζουμε κρυπτογράφηση με τον τύπο
+	Ci = (ai+bMi+g)(ModN)
+	και αποκρυπτογράφηση με τον τύπο
+	Mi = b^-1(Mi-ai-g)(ModN)
 """
 
 
@@ -44,7 +46,7 @@ import string
 """
 numbers_letters = {} 
 
-decipher_text = []
+decipher_text = [] # εδώ θα αποθηκεύσουμε το αποκρυπτογραφημένο κείμενο
 cipher_text = [] #είσοδος από το χρήστη του κειμένου που θέλει να κρυπτογραφηθεί
 
 def create_initial_dict(i = 0): # ο iterator αν αλλάξει σε άλλον αριθμό θα γίνει διαφορετικό ξεκίνημα 
@@ -100,6 +102,10 @@ def get_key3():
 	return key_disp%len(string.ascii_lowercase) #θα μπορούσαμε να βάλουμε %26 αλλά αν αλλάξει το αλφάβητο απο αγγλικό σε ελληνικό?
 
 
+
+"""
+	Με τις 2 παρακάτω υπολογίζουμε τον αντίστροφο με το διευρημένο αλγόριθμο του Ευκλείδη
+"""
 def egcd(a, b):
     if a == 0:
         return (b, 0, 1)

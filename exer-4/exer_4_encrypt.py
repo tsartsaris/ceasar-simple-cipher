@@ -44,7 +44,7 @@ import string
 """
 numbers_letters = {} 
 
-
+decipher_text = []
 cipher_text = [] #είσοδος από το χρήστη του κειμένου που θέλει να κρυπτογραφηθεί
 
 def create_initial_dict(i = 0): # ο iterator αν αλλάξει σε άλλον αριθμό θα γίνει διαφορετικό ξεκίνημα 
@@ -70,6 +70,7 @@ def get_text_from_user():
 """
 	Με την get_key_from_user πέρνουμε έναν αριθμό από τον χρήστη για που θα έιναι το κλειδί για 
 	το disposition των γραμμάτων. Επιστρέφουμε το modulo στη return. 
+	Το κάννουμε 3 φορές
 """
 def get_key1():
 	while True:
@@ -99,6 +100,21 @@ def get_key3():
 	return key_disp%len(string.ascii_lowercase) #θα μπορούσαμε να βάλουμε %26 αλλά αν αλλάξει το αλφάβητο απο αγγλικό σε ελληνικό?
 
 
+def egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
+
+def modinv(a, m):
+    gcd, x, y = egcd(a, m)
+    if gcd != 1:
+        return None  # modular inverse does not exist
+    else:
+        return x % m
+
+
 create_initial_dict() # αν είχαμε κάνει στην αρχή fixed το dictionary αυτό θα το προσπερνούσαμε
 
 key1 = get_key1()
@@ -113,6 +129,18 @@ for char in text: # iterate στο κείμενο του χρήστη
 		if value == char: # αν βρούμε το ίδιο γράμμα
 			fkey = ((key1*i)+(key2*key) + key3)%26 # τότε η θέση του νέου γράμματος θα είναι από τον τύπο
 			cipher_text.extend(numbers_letters[fkey]) # τότε προσθέτουμε στη λίστα το γράμμα που αντιστοιχεί στην ίδια θέση από 
-													  # το αρχικό dictionary, μετατόπιση δηλαδή
+			i+=1											  # το αρχικό dictionary, μετατόπιση δηλαδή
 
 print ''.join(cipher_text) # εμφανίζουμε το αποτέλεσμα στο χρήστη μετατρέποντας τη λίστα σε string
+
+euklidian = modinv(key2,26)
+print euklidian
+
+for char in cipher_text:
+	i=1
+	for key,value in numbers_letters.iteritems():
+		if value == char:
+			fkey = (euklidian*(key-(key1*i)-key3))%26
+			decipher_text.extend(numbers_letters[fkey])
+			i+=1
+print ''.join(decipher_text)

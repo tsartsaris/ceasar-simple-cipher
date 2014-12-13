@@ -93,3 +93,8 @@ print result
 
 key_stream_initialisation = xor_res[:int(result[0])]
 print key_stream_initialisation
+
+"""
+αποτέλεσμα
+[0, 0, 1]
+"""

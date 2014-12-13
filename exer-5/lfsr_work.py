@@ -78,11 +78,18 @@ print meter
 
 """
 x = Symbol('x')
-print solve(2**x - 1-meter, x)
-
+result =  solve(2**x - 1-meter, x)
+print result
 """
 έχω απάντηση οτι το μέτρο είναι 7 
 και το μήκος 3
 7
 [3]
 """
+"""
+Αφού το μήκος της γεννήτριας είναι γνωστό μπορούμε να πάρουμε το διάνυσμα αρχικοποίησης 
+που θα είναι τα x πρώτα στοιχεία της λίστας XOR
+"""
+
+key_stream_initialisation = xor_res[:int(result[0])]
+print key_stream_initialisation

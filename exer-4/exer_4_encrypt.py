@@ -134,13 +134,24 @@ for char in text: # iterate στο κείμενο του χρήστη
 print ''.join(cipher_text) # εμφανίζουμε το αποτέλεσμα στο χρήστη μετατρέποντας τη λίστα σε string
 
 euklidian = modinv(key2,26)
-print euklidian
+print euklidian # Ο αντίστροφος του β, του key2 δηλαδή
 
-for char in cipher_text:
-	i=1
-	for key,value in numbers_letters.iteritems():
-		if value == char:
-			fkey = (euklidian*(key-(key1*i)-key3))%26
-			decipher_text.extend(numbers_letters[fkey])
+for char in cipher_text: #για κάθε χαρακτήρα του κρυπτογραφημένου πλέον κειμένου
+	i=1 
+	for key,value in numbers_letters.iteritems(): #για κάθε ζεύγος στην αντιστοίχηση γραμμάτων αριθμών
+		if value == char: # αν υπάρχει ο χαρακτήρας
+			fkey = (euklidian*(key-(key1*i)-key3))%26 #εφαρμόζουμε τον τύπο με τον αντίστροφο
+			decipher_text.extend(numbers_letters[fkey]) #αντιστοιχίζουμε τον νεό αριθμό με το γράμμα στο dictionary <αντίστροφη μετατόπιση>
 			i+=1
-print ''.join(decipher_text)
+print ''.join(decipher_text) #τέλος εμφανίζουμε το decrypted μήνυμα στο χρήστη
+
+"""
+Αποτέλεσμα
+Please enter a number for key1: 3
+Please enter a number for key2: 7
+Please enter a number for key3: 9
+Please provide text to encrypt: I am a data nerd
+qmsmhmpmzobh
+15
+iamadatanerd
+"""

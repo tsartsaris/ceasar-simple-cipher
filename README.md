@@ -17,12 +17,4 @@ For the MSc in the UOM, Cryptography lectures
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    Initial commit of the code at 
-
-
-
-
-	Με τον κώδικα που ακολουθεί εφαρμόζουμε τη μέθοδο του Ceasar για απλή κρυπτογράφηση κειμένου. 
-	Η κρυπτογράφηση θα γίνει με μετατόπιση της αρχικής θέσης κάθε γράμματος κατά την αρχική θέση προσθέτοντας 
-	το κλειδί και κρατώντας το μόντουλο με 26. Τα comments ή θα είναι πριν από το κομμάτι κώδικα που επεξηγούνε
-	ή στην ίδια σειρά μετά από ένα #
+    Initial commit of the code at https://github.com/tsartsaris/ceasar-simple-cipher

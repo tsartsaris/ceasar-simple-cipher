@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 __author__ = "Tsartsaris Sotiris"
-__credits__ = ["Daniel O'Donovan,Tsartsaris Sotiris"]
+__credits__ = ["Tsartsaris Sotiris"]
 __license__ = "APACHE 2.0"
 __version__ = "1.0.1"
 __maintainer__ = "Tsartsaris Sotiris"
@@ -10,35 +10,27 @@ __email__ = "info@tsartsaris.gr"
 __status__ = "Development"
 
 
+from math import *
+import time
+# Discrete logarithm for g^x=h (p) by baby-step giant-step
 
-import sys
-import os
-import math
-import gmpy
-    
-def shanks( y, a, n):
-    """ Shanks' baby-step giant-step for finding discrete logarithms 
-        of form : x = log_a ( y mod n )
-    """
-    s = gmpy.sqrt( n )
+def baby_giant(h,g,p):
+    baby = [1]
+    giant = [h]
+    n = 1+int(floor(sqrt(p-1)))
 
-    S = {} # calculate the baby steps
-    T = {} # calculate the giant steps
-    for i in range( s ): 
-        S['%s' % gmpy.mpz( ( y * (a ** i))      % n ) ] = int( i ) 
-        T['%s' % gmpy.mpz( ( a ** ((i+1) * s) ) % n ) ] = int( i )
+    for i in range(1,n):
+        baby.append( ((baby[i-1]*g)%p) )
         
-    # mathching and computing
-    for key in S.keys():
-        if key in T:
-            r  =  S[key]
-            st = (T[key] + 1) * s
-            break
-    x = st - r
+    g = (g%p)^-n
+    for j in range(1,n):
+        giant.append( ((giant[j-1]*g)%p) )
     
-    print 'So        log_%d %d\t(mod %d) =\t%d ' % ( a, y, n, x)
-    print 'or equiv.     %d^%d\t(mod %d) =\t%d ' % ( a, x, n, y)
-    return x
-    
-if __name__ == '__main__':
-    x = shanks( 64, 2, 524287 )
+    for inters in set(baby).intersection( set(giant) ):
+        # print 'i =', baby.index(inters)
+        # print 'j =', giant.index(inters)
+        print 'x =',  baby.index(inters)+n*giant.index(inters)
+t1 = time.time()
+baby_giant(1697571506, 2, 5915587277)
+t2 = time.time()
+print t2-t1, ":secs"

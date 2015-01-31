@@ -1,10 +1,15 @@
 #!/usr/bin/env python
 # encoding: utf-8
-"""
-chapter_2.py
-Created by Daniel O'Donovan on 2008-10-09.
-Copyright (c) 2008 University of Cambridge. All rights reserved.
-"""
+
+__author__ = "Tsartsaris Sotiris"
+__credits__ = ["Daniel O'Donovan,Tsartsaris Sotiris"]
+__license__ = "APACHE 2.0"
+__version__ = "1.0.1"
+__maintainer__ = "Tsartsaris Sotiris"
+__email__ = "info@tsartsaris.gr"
+__status__ = "Development"
+
+
 
 import sys
 import os

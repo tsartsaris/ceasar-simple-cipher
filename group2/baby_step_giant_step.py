@@ -2,12 +2,6 @@
 # encoding: utf-8
 
 __author__ = "Tsartsaris Sotiris"
-__credits__ = ["Tsartsaris Sotiris"]
-__license__ = "APACHE 2.0"
-__version__ = "1.0.1"
-__maintainer__ = "Tsartsaris Sotiris"
-__email__ = "info@tsartsaris.gr"
-__status__ = "Development"
 
 
 from math import *
@@ -23,6 +17,7 @@ def baby_giant(h,g,p):
         baby.append( ((baby[i-1]*g)%p) )
         
     g = (g%p)^-n
+    print n
     for j in range(1,n):
         giant.append( ((giant[j-1]*g)%p) )
     
@@ -31,6 +26,6 @@ def baby_giant(h,g,p):
         # print 'j =', giant.index(inters)
         print 'x =',  baby.index(inters)+n*giant.index(inters)
 t1 = time.time()
-baby_giant(1697571506, 2, 5915587277)
+baby_giant( 1697571506, 2, 5915587277 )
 t2 = time.time()
 print t2-t1, ":secs"
